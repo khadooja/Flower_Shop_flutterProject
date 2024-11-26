@@ -25,16 +25,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Forgot Password",
-                    style: TextStyle(
-                      color: AppStyles.textColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 50),
                   const Text(
                     "Please enter your email and we will send \nyou a link to return to your account",
                     textAlign: TextAlign.center,
@@ -93,7 +84,7 @@ class ForgotPasswordForm extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
+              Navigator.pushReplacementNamed(context, '/ChangePassword');
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gift_planner/provider/uersprovider.dart';
+import 'package:gift_planner/utils/design_components.dart';
 import 'package:gift_planner/utils/validators.dart';
+import 'package:gift_planner/widget/custom_text_filed.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
@@ -39,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             children: [
               const Text(
                 "Edit Your Profile",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10.0),
               Form(
@@ -47,62 +49,49 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   children: [
                     // First Name
-                    TextFormField(
-                      initialValue: user.firstName,
-                      decoration: const InputDecoration(
-                        labelText: "First Name",
-                        prefixIcon: Icon(Icons.person_outline),
-                      ),
-                      onSaved: (value) => firstName = value!,
+                    CustomTextField(
+                      hintText: "First Name",
+                      prefixIcon: Icons.person,
                       validator: ValidationUtils.validateName,
+                      onSaved: (value) => lastName = value!,
                     ),
                     const SizedBox(height: 10.0),
 
                     // Last Name
-                    TextFormField(
-                      initialValue: user.lastName,
-                      decoration: const InputDecoration(
-                        labelText: "Last Name",
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                      onSaved: (value) => lastName = value!,
+                    CustomTextField(
+                      hintText: "Last Name",
+                      prefixIcon: Icons.person,
                       validator: ValidationUtils.validateName,
+                      onSaved: (value) => lastName = value!,
                     ),
                     const SizedBox(height: 10.0),
 
                     // Username
-                    TextFormField(
-                      initialValue: user.username,
-                      decoration: const InputDecoration(
-                        labelText: "Username",
-                        prefixIcon: Icon(Icons.account_circle),
-                      ),
-                      onSaved: (value) => username = value!,
+                    CustomTextField(
+                      hintText: "Username",
+                      prefixIcon: Icons.account_circle,
                       validator: ValidationUtils.validateName,
+                      onSaved: (value) => username = value!,
                     ),
                     const SizedBox(height: 10.0),
 
                     // Phone Number
-                    TextFormField(
-                      initialValue: user.phoneNumber,
-                      decoration: const InputDecoration(
-                        labelText: "Phone Number",
-                        prefixIcon: Icon(Icons.phone),
-                      ),
-                      onSaved: (value) => phoneNumber = value!,
+                    CustomTextField(
+                      hintText: "Phone Number",
+                      prefixIcon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
                       validator: ValidationUtils.validatePhoneNumber,
+                      onSaved: (value) => email = value!,
                     ),
                     const SizedBox(height: 10.0),
 
                     // Location
-                    TextFormField(
-                      initialValue: user.email,
-                      decoration: const InputDecoration(
-                        labelText: "Email",
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      onSaved: (value) => email = value!,
+                    CustomTextField(
+                      hintText: "Email",
+                      prefixIcon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
                       validator: ValidationUtils.validateEmail,
+                      onSaved: (value) => email = value!,
                     ),
                     const SizedBox(height: 20.0),
 
@@ -126,6 +115,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 context); // العودة إلى صفحة الملف الشخصي
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppStyles.seconderyColor,
+                          foregroundColor:
+                              AppStyles.foregroundColor, // لون النص
+                          elevation: 5, // التحكم في الظل
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8), // جعل الحواف مستديرة
+                          ),
+                        ),
                         child: const Text("Save Changes"),
                       ),
                     ),

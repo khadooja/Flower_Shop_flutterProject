@@ -7,6 +7,7 @@ import 'package:gift_planner/screens/allProductsPage.dart';
 import 'package:gift_planner/screens/cart_screen.dart';
 import 'package:gift_planner/screens/editprofile.dart';
 import 'package:gift_planner/screens/favorit_screen.dart';
+import 'package:gift_planner/screens/forgetpass.dart';
 import 'package:gift_planner/screens/home_screen.dart';
 import 'package:gift_planner/screens/login_page.dart';
 import 'package:gift_planner/screens/onboarding_screen.dart';
@@ -45,9 +46,10 @@ class MyApp extends StatelessWidget {
         '/signorlog': (context) => const SigninOrSignupScreen(),
         '/login': (context) => LastNameScreen(),
         '/password': (context) => const ForgotPasswordScreen(),
+        '/ChangePassword': (context) => ChangePasswordScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/editProfile': (context) => const EditProfileScreen(),
-        '/sigin': (context) => const SignUpScreen(),
+        '/sigin': (context) => const SignUpPage(),
         '/home': (context) => const HomeScreen(),
         '/cart': (context) => const CartScreen(
               cartItems: [],

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gift_planner/utils/design_components.dart';
 import 'package:gift_planner/utils/validators.dart';
+import 'package:gift_planner/widget/custom_text_filed.dart'; // تأكد من استيراد ملف AppStyles إذا كان موجودًا
 
-class LastNameScreen extends StatelessWidget {
+class LastNameScreen extends StatefulWidget {
+  @override
+  _LastNameScreenState createState() => _LastNameScreenState();
+}
+
+class _LastNameScreenState extends State<LastNameScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  LastNameScreen({super.key});
+  bool _isPasswordHidden = true; // متغير للتحكم في إخفاء/إظهار كلمة المرور
 
   @override
   Widget build(BuildContext context) {
@@ -41,45 +46,32 @@ class LastNameScreen extends StatelessWidget {
                     key: _formKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            filled: true,
-                            fillColor: Color.fromARGB(255, 245, 234, 237),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16.0 * 1.5, vertical: 16.0),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            prefixIcon: Icon(Icons.email_outlined),
-                          ),
+                        const CustomTextField(
+                          hintText: 'Email',
+                          prefixIcon: Icons.email_outlined,
+                          keyboardType: TextInputType.emailAddress,
                           validator: ValidationUtils.validateEmail,
                         ),
                         const SizedBox(height: 20.0),
-                        TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 245, 234, 237),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0 * 1.5, vertical: 16.0),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            prefixIcon: const Icon(Icons.lock),
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.visibility),
-                              onPressed: () {
-                                // Toggle password visibility
-                              },
-                            ),
-                          ),
+                        CustomTextField(
+                          hintText: 'Password',
+                          prefixIcon: Icons.lock,
+                          obscureText:
+                              _isPasswordHidden, // إخفاء/إظهار كلمة المرور
                           validator: ValidationUtils.validatePassword,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordHidden =
+                                    !_isPasswordHidden; // تبديل الإخفاء والإظهار
+                              });
+                            },
+                          ),
                         ),
                         const SizedBox(height: 20.0),
                         ElevatedButton(
@@ -97,41 +89,40 @@ class LastNameScreen extends StatelessWidget {
                           ),
                           child: const Text("Login"),
                         ),
-                        const SizedBox(height: 16.0),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/password');
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: Colors.grey),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/sigin');
-                          },
-                          child: Text.rich(
-                            const TextSpan(
-                              text: "Don’t have an account? ",
-                              children: [
-                                TextSpan(
-                                  text: "Sign Up",
-                                  style:
-                                      TextStyle(color: AppStyles.primaryColor),
-                                ),
-                              ],
-                            ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: AppStyles.textStyle),
-                          ),
-                        ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/password');
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: Colors.grey),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/sigin');
+                    },
+                    child: Text.rich(
+                      const TextSpan(
+                        text: "Don’t have an account? ",
+                        children: [
+                          TextSpan(
+                            text: "Sign Up",
+                            style: TextStyle(color: AppStyles.primaryColor),
+                          ),
+                        ],
+                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: AppStyles.textStyle),
                     ),
                   ),
                   const SizedBox(height: 20.0),

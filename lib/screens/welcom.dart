@@ -13,7 +13,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     // الانتقال التلقائي إلى الشاشة التالية بعد 3 ثوانٍ باستخدام اسم المسار
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 7), () {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/onboarding');
     });

@@ -5,7 +5,7 @@ import 'package:gift_planner/provider/FavoritesProvide.dart';
 import 'package:gift_planner/screens/cart_screen.dart';
 import 'package:gift_planner/screens/product_details_screen.dart';
 import 'package:gift_planner/utils/design_components.dart';
-import 'package:gift_planner/widget/productcart.dart';
+import 'package:gift_planner/widget/productcard.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
