@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String?)? onSaved;
   final Widget? suffixIcon;
+  final String? initialValue; // أضف خاصية initialValue هنا
 
   const CustomTextField({
     super.key,
@@ -18,11 +19,13 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.suffixIcon,
+    this.initialValue, // استدعاء initialValue هنا
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue, // تمرير initialValue إلى TextFormField
       decoration: InputDecoration(
         hintText: hintText,
         filled: true,

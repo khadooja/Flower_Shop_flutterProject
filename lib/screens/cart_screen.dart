@@ -57,7 +57,7 @@ class CartScreen extends StatelessWidget {
                       key: Key(cartItem.product.name),
                       direction: DismissDirection.endToStart,
                       onDismissed: (direction) {
-                        cartProvider.removeFromCart(cartItem);
+                        cartProvider.removeallFromCart1(cartItem);
                       },
                       background: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

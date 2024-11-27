@@ -41,6 +41,153 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             children: [
               const Text(
                 "Edit Your Profile",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10.0),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    // First Name
+                    CustomTextField(
+                      initialValue: user.firstName,
+                      hintText: "First Name",
+                      prefixIcon: Icons.person_outline,
+                      onSaved: (value) => firstName = value!,
+                      validator: ValidationUtils.validateName,
+                    ),
+                    const SizedBox(height: 10.0),
+
+                    // Last Name
+                    CustomTextField(
+                      initialValue: user.lastName,
+                      hintText: "Last Name",
+                      prefixIcon: Icons.person,
+                      onSaved: (value) => lastName = value!,
+                      validator: ValidationUtils.validateName,
+                    ),
+                    const SizedBox(height: 10.0),
+
+                    // Username
+                    CustomTextField(
+                      initialValue: user.username,
+                      hintText: "Username",
+                      prefixIcon: Icons.account_circle,
+                      onSaved: (value) => username = value!,
+                      validator: ValidationUtils.validateName,
+                    ),
+
+                    const SizedBox(height: 10.0),
+
+                    // Phone Number
+                    CustomTextField(
+                      hintText: 'Phone Number',
+                      prefixIcon: Icons.phone,
+                      keyboardType: TextInputType.phone,
+                      initialValue: user.phoneNumber,
+                      validator: ValidationUtils.validatePhoneNumber,
+                      onSaved: (value) {
+                        phoneNumber = value!;
+                      },
+                    ),
+                    const SizedBox(height: 10.0),
+
+                    // Location
+                    CustomTextField(
+                      hintText: 'Email',
+                      prefixIcon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
+                      initialValue:
+                          user.email, // القيمة الافتراضية للبريد الإلكتروني
+                      validator: ValidationUtils.validateEmail,
+                      onSaved: (value) {
+                        email = value!;
+                      },
+                    ),
+                    const SizedBox(height: 20.0),
+
+                    // Save Button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            userProvider.updateUser(
+                              firstName: firstName,
+                              lastName: lastName,
+                              username: username,
+                              phoneNumber: phoneNumber,
+                              password: '',
+                              email: email,
+                              profileImage: '',
+                            );
+                            Navigator.pop(
+                                context); // العودة إلى صفحة الملف الشخصي
+                          }
+                        },
+                        child: const Text("Save Changes"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _EditProfileScreenState createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String firstName, lastName, username, phoneNumber, email;
+
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Edit Profile"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // العودة إلى صفحة الملف الشخصي
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Edit Your Profile",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10.0),
@@ -137,4 +284,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
-}
+}*/

@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:gift_planner/provider/uersprovider.dart';
 import 'package:gift_planner/utils/design_components.dart';
 import 'package:gift_planner/utils/validators.dart';
 import 'package:gift_planner/widget/custom_text_filed.dart'; // تأكد من استيراد ملف AppStyles إذا كان موجودًا
+import 'package:provider/provider.dart';
 
 class LastNameScreen extends StatefulWidget {
+  const LastNameScreen({super.key});
+
   @override
   _LastNameScreenState createState() => _LastNameScreenState();
 }
 
 class _LastNameScreenState extends State<LastNameScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _isPasswordHidden = true; // متغير للتحكم في إخفاء/إظهار كلمة المرور
+  bool _passwordVisible = true; // التحكم في إخفاء/إظهار كلمة المرور
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
     return Scaffold(
       backgroundColor: AppStyles.background,
       body: SafeArea(
@@ -46,37 +55,52 @@ class _LastNameScreenState extends State<LastNameScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        const CustomTextField(
+                        CustomTextField(
                           hintText: 'Email',
                           prefixIcon: Icons.email_outlined,
                           keyboardType: TextInputType.emailAddress,
+                          initialValue:
+                              user.email, // القيمة الافتراضية للبريد الإلكتروني
                           validator: ValidationUtils.validateEmail,
+                          onSaved: (value) {
+                            email = value!;
+                          },
                         ),
                         const SizedBox(height: 20.0),
                         CustomTextField(
-                          hintText: 'Password',
+                          hintText: "Password",
                           prefixIcon: Icons.lock,
-                          obscureText:
-                              _isPasswordHidden, // إخفاء/إظهار كلمة المرور
+                          obscureText: !_passwordVisible,
                           validator: ValidationUtils.validatePassword,
+                          onSaved: (value) => password = value!,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _isPasswordHidden
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
                               setState(() {
-                                _isPasswordHidden =
-                                    !_isPasswordHidden; // تبديل الإخفاء والإظهار
+                                _passwordVisible = !_passwordVisible;
                               });
                             },
                           ),
+                          initialValue: user.password,
                         ),
                         const SizedBox(height: 20.0),
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              userProvider.updateUser(
+                                firstName: userProvider.user.firstName,
+                                lastName: userProvider.user.lastName,
+                                username: userProvider.user.username,
+                                phoneNumber: userProvider.user.phoneNumber,
+                                email: email,
+                                password: password,
+                                profileImage: userProvider.user.profileImage,
+                              );
                               Navigator.pushNamed(context, '/home');
                             }
                           },

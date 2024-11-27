@@ -102,11 +102,14 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final products =
+        Provider.of<CartProvider>(context).products; // جلب قائمة المنتجات
+
     return TextFormField(
       onChanged: (value) {
         // تحديث قيمة البحث في provider
         Provider.of<CartProvider>(context, listen: false)
-            .updateSearchQuery(value);
+            .updateSearchQuery(value, products); // تمرير المنتجات
       },
       decoration: InputDecoration(
         filled: true,

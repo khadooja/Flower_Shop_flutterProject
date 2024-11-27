@@ -44,6 +44,7 @@ class _SChangePasswordScreen extends State<ChangePasswordScreen> {
                       });
                     },
                   ),
+                  initialValue: '',
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
@@ -64,6 +65,7 @@ class _SChangePasswordScreen extends State<ChangePasswordScreen> {
                       });
                     },
                   ),
+                  initialValue: '',
                 ),
                 const SizedBox(height: 20),
               ],
